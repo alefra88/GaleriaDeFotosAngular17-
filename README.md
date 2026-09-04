@@ -1,59 +1,38 @@
-# GaleriaFotos
+# 📸 Galería de Fotos 
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.7.
+**Reto 3 - Módulo de Programación Web Multiplataforma**
 
-## Development server
+Este proyecto es una aplicación web de una sola página (SPA) desarrollada en **Angular**. Su objetivo es demostrar la creación y comunicación de múltiples componentes independientes, el manejo del estado global de la aplicación y la renderización dinámica de interfaces basadas en datos.
 
-To start a local development server, run:
+## 🚀 Estructura de Componentes
 
-```bash
-ng serve
-```
+La aplicación se divide en tres componentes principales apoyados por un servicio central:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. **Galería Principal (`GaleriaComponent`):** Muestra la colección de imágenes en una cuadrícula responsiva. Implementa el control de estado vacío (cuando no hay fotos) y lista dinámicamente el arreglo de datos.
+2. **Modal de Carga (`CargaFotosComponent`):** Un formulario flotante que permite registrar nuevas fotografías capturando su URL, título, descripción y metadatos de categoría.
+3. **Visor de Detalles (`FotoDetalleComponent`):** Una vista expandida que reacciona a la foto seleccionada, mostrando información condicional de los metadatos fotográficos dependiendo de la categoría elegida (Retrato, Paisaje, Macro, Estándar).
 
-## Code scaffolding
+## 🛠️ Tecnologías y Modernización del Código
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Este proyecto fue desarrollado utilizando el estándar moderno de Angular (v17+), empleando **Standalone Components** y **Tailwind CSS**. 
 
-```bash
-ng generate component component-name
-```
+**Justificación Técnica (Modernización de Directivas):**
+Para cumplir con los objetivos de visualización de datos de la rúbrica, se optó por implementar el nuevo **Control de Flujo Integrado** en lugar de las directivas estructurales tradicionales:
+* **`@if` (Reemplazo de `*ngIf`):** Utilizado en la Galería para alternar entre el mensaje "No hay fotos disponibles" y la cuadrícula de imágenes, así como para renderizar condicionalmente los componentes modales.
+* **`@for` (Reemplazo de `*ngFor`):** Utilizado para iterar sobre el arreglo de fotografías en el componente principal, mejorando el rendimiento de renderizado.
+* **`@switch` (Reemplazo de `*ngSwitch`):** Implementado en el visor de detalles para renderizar dinámicamente diferentes explicaciones técnicas basadas en el metadato `tipo` de la fotografía seleccionada.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+**Data Binding y Estado:**
+* **Bidireccional (Two-Way Binding):** Implementado con `[(ngModel)]` en el componente de carga para sincronizar el formulario con el objeto temporal de TypeScript en tiempo real.
+* **Unidireccional (Property Binding):** Utilizado mediante interpolación `{{ }}` y corchetes `[src]` para proyectar los datos de las imágenes hacia el HTML.
+* **Reactividad con Signals:** El estado global (lista de fotos, foto seleccionada y estado de modales) se administra en el servicio `GaleriaService` mediante `signal()`, eliminando la necesidad de emitir eventos complejos entre componentes y mejorando drásticamente el rendimiento.
 
-```bash
-ng generate --help
-```
+## 💻 Instrucciones de Ejecución
 
-## Building
+Para correr este proyecto en un entorno local:
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Clona o descarga el repositorio.
+2. Abre una terminal en la carpeta raíz del proyecto (`GaleriaFotos`).
+3. Instala las dependencias necesarias:
+   ```bash
+   npm install
