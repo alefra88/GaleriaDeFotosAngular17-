@@ -1,0 +1,63 @@
+<!-- El "as foto" nos permite guardar el resultado en una variable local para usarla más fácil -->
+@if (fotoSeleccionada(); as foto) {
+  
+  <div class="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50 p-4 lg:p-12">
+    <!-- Contenedor principal dividido en dos: Imagen a la izquierda, Info a la derecha -->
+    <div class="bg-white rounded-xl overflow-hidden shadow-2xl w-full max-w-5xl flex flex-col md:flex-row relative max-h-full">
+
+      <!-- Botón de cerrar en la esquina -->
+      <button (click)="cerrar()" class="absolute top-4 right-4 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full w-8 h-8 flex justify-center items-center font-bold transition z-10">
+        X
+      </button>
+
+      <!-- Columna Izquierda: Imagen grande -->
+      <div class="md:w-3/5 bg-gray-100 flex items-center justify-center p-4">
+        <img [src]="foto.url" [alt]="foto.titulo" class="max-h-[60vh] md:max-h-[80vh] object-contain drop-shadow-md">
+      </div>
+
+      <!-- Columna Derecha: Detalles -->
+      <div class="md:w-2/5 p-6 md:p-8 flex flex-col overflow-y-auto">
+        <h3 class="text-3xl font-bold text-gray-900 mb-2">{{ foto.titulo }}</h3>
+        <p class="text-gray-600 mb-8">{{ foto.descripcion }}</p>
+
+        <!-- RÚBRICA: @switch para mostrar detalles distintos según el tipo de foto -->
+        <div class="mt-auto bg-gray-50 border border-gray-200 p-5 rounded-lg">
+          <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Metadatos de captura</h4>
+
+          @switch (foto.tipo) {
+            
+            @case ('retrato') {
+              <div class="flex gap-3 text-indigo-700">
+                <span class="text-2xl">👤</span>
+                <p class="text-sm leading-relaxed"><strong>Modo Retrato:</strong> Prioridad de enfoque en el sujeto. La cámara configuró una profundidad de campo reducida para desenfocar el fondo suavemente.</p>
+              </div>
+            }
+            
+            @case ('paisaje') {
+              <div class="flex gap-3 text-emerald-700">
+                <span class="text-2xl">⛰️</span>
+                <p class="text-sm leading-relaxed"><strong>Modo Paisaje:</strong> Lente gran angular activado. Apertura cerrada (ej. f/8 o superior) para mantener nítidos tanto el primer plano como el horizonte distante.</p>
+              </div>
+            }
+            
+            @case ('macro') {
+              <div class="flex gap-3 text-rose-700">
+                <span class="text-2xl">🔍</span>
+                <p class="text-sm leading-relaxed"><strong>Modo Macro:</strong> Fotografía de acercamiento extremo. Distancia mínima de enfoque habilitada con alta velocidad de obturación para evitar trepidación.</p>
+              </div>
+            }
+            
+            @default {
+              <div class="flex gap-3 text-gray-600">
+                <span class="text-2xl">📷</span>
+                <p class="text-sm leading-relaxed"><strong>Estándar:</strong> Fotografía general. Balance de blancos automático y ajustes equilibrados sin filtros específicos aplicados.</p>
+              </div>
+            }
+            
+          }
+        </div>
+        
+      </div>
+    </div>
+  </div>
+}
